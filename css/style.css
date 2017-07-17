@@ -1,0 +1,229 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,400,700');
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+a,
+li {
+    font-family: 'Roboto', sans-serif;
+}
+
+
+/*------ note general ------*/
+
+body {
+    background-image: url('../img/cork-repeat.jpg');
+    min-height: 1000px;
+    /*圖片預設原本就是repeat*/
+}
+
+
+/*將card-wrapper當作一個透視的環境*/
+
+.card-wrapper {
+    perspective: 5000px;
+}
+
+.card {
+    width: 600px;
+    margin: 100px auto;
+}
+
+.card>.upper-section,
+.card>.lower-section {
+    padding: 20px 20px;
+    position: relative;
+}
+
+
+/*游標滑上去，價錢才會顯示出來*/
+
+.card:hover .price {
+    opacity: 1;
+}
+
+
+/*游標移上去，文字會往下動*/
+
+.card:hover .text {
+    margin-top: 100px;
+}
+
+
+/*------ note fonts ------*/
+
+* {
+    color: #333;
+}
+
+.dish-name {
+    font-size: 50px;
+    letter-spacing: 8px;
+    font-weight: 700;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    margin: 0;
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: 100;
+    letter-spacing: 5px;
+    margin: 0
+}
+
+
+/*------ note upper-section ------*/
+
+.upper-section {
+    background-color: white;
+    height: 220px;
+    z-index: 5;
+    color: white;
+    background-image: url('../img/salmon-steak.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* todo 設定filter屬性控制照片明亮與飽和度 */
+    filter: brightness(1.1) grayscale(10%);
+    /*明亮度預設值為1，數字越大越亮*/
+    /*brightness若值介於0-1之間，有點像是遮罩*/
+    /*grayscale預設值為0%，範圍從0-100%，越近100越黑白*/
+    transform: rotateX(15deg);
+    /*HINT:摺紙，側視圖，deg(degree)，軸心預設為圖片的正中央*/
+    transform-origin: bottom;
+    /*將軸心改為圖片底部*/
+}
+
+.upper-section .text {
+    margin-top: 80px;
+}
+
+.upper-section * {
+    color: white;
+}
+
+.upper-section p {
+    margin: 0;
+}
+
+.price {
+    margin-top: 15px;
+    font-style: italic;
+    font-size: 18px;
+    font-weight: 100;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    /*範圍在0-1之間，0是完全透明*/
+    /*op+數字+tab*/
+}
+
+.price:before {
+    content: "$";
+    margin-right: 5px;
+    /*覺得字與$太近的話，可以直接加上空格，或是使用margin-right*/
+}
+
+.price:after {
+    content: "NTD";
+    margin-left: 5px;
+}
+
+
+/*------ note lower-section ------*/
+
+.lower-section {
+    background-color: white;
+    z-index: 1;
+    transform: rotateX(-100deg);
+    /*下半部往後折，-90deg的話，一開始為隱藏因此看不見*/
+    transform-origin: top;
+    /*改變軸心位置*/
+}
+
+.ingredients {
+    list-style: none;
+    padding-left: 0;
+}
+
+.ingredients>li {
+    height: 40px;
+    line-height: 40px;
+    font-size: 18;
+    padding-left: 50px;
+    border-bottom: 1px dashed #dbdbdb;
+    position: relative;
+    cursor: pointer;
+    /*變更游標樣式，讓使用者知道他是可以點擊的東西*/
+    /*區塊元素若沒有設定width，預設值為100%*/
+}
+
+.ingredients>li.done {
+    text-decoration: line-through;
+    /*文字加入刪除線*/
+}
+
+
+/*before裡面一定要有"content"*/
+
+
+/*content為一個行內元素，沒有寬與高，所以加入"display:block"*/
+
+.ingredients>li:before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #dbdbdb;
+    left: 8px;
+    /* absolute元素垂直置中法 */
+    top: 0;
+    bottom: 0;
+    margin-top: auto;
+    margin-bottom: auto;
+    /*完成後，不論如何改變w和h都會維持垂直置中*/
+}
+
+.ingredients>li.done:before {
+    background-image: url(../img/checked.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    /*將圖片設定為水平垂直置中*/
+}
+
+
+/*------ note animation ------*/
+
+.upper-section,
+.lower-section,
+.price,
+.text {
+    transition: all .8s ease-out;
+    -webkit-transition: all .8s ease-out;
+    -moz-transition: all .8s ease-out;
+    /*慢慢折起來的感覺*/
+}
+
+.card:hover>.upper-section,
+.card:hover>.lower-section {
+    transform: rotateX(0deg);
+    /*游標移動到上面時，會由原本的15deg變成0deg*/
+    filter: brightness(1) grayscale(0%);
+    /*覺得動得太快，就想到transition*/
+}
+
+
+/* todo 設計.card:hover動畫 */
+
+
+/* todo 設計.card:hover的3D動畫 */
+
+
+/* note circle */
+
+
+/* todo 設計底圖擴散圓圈特效動畫 */
